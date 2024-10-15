@@ -1,5 +1,7 @@
 # Guarda-Chuva Farmácias - Sistema de Movimentação de Produtos
 
+![Alt text](assets/logo.jpeg)
+
 ## Descrição do Projeto
 
 A **Multinacional Guarda-Chuva Farmácias** está desenvolvendo um aplicativo interno para gerenciar as movimentações de produtos entre as filiais da organização. Este projeto visa facilitar o acompanhamento de entregas e movimentações de estoque com uma interface interativa, incluindo funcionalidades específicas para motoristas e gestores de filiais.
