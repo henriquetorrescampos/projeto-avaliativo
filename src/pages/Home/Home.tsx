@@ -10,13 +10,29 @@ export default function Home({ navigation }) {
 
       <View style={styles.containerButtons}>
         <TouchableOpacity style={styles.borderButton}>
-          <Text>Estoque</Text>
+          <View style={styles.containerContent}>
+            <MaterialCommunityIcons name="store" size={40} />
+
+            <Text style={styles.textButton}>Estoque</Text>
+          </View>
+
+          <View style={styles.containerTextGerenciar}>
+            <Text style={styles.textGerenciar}>Gerenciar</Text>
+          </View>
         </TouchableOpacity>
 
         <View style={styles.spaceBetweenButtons}></View>
 
         <TouchableOpacity style={styles.borderButton}>
-          <Text>Usuários</Text>
+          <View style={styles.containerContent}>
+            <MaterialCommunityIcons name="account" size={40} />
+
+            <Text style={styles.textButton}>Usuários</Text>
+          </View>
+
+          <View style={styles.containerTextGerenciar}>
+            <Text style={styles.textGerenciar}>Gerenciar</Text>
+          </View>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
