@@ -2,6 +2,7 @@ import { Image, TextInput, Text, View, TouchableOpacity } from "react-native";
 import styles from "./style";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import axios from "axios";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
