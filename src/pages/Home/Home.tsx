@@ -4,6 +4,10 @@ import Header from "../../components/Header/Header";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function Home({ navigation }) {
+  function navigateToUsers() {
+    navigation.navigate("Users");
+  }
+
   return (
     <SafeAreaView>
       <Header></Header>
@@ -23,7 +27,7 @@ export default function Home({ navigation }) {
 
         <View style={styles.spaceBetweenButtons}></View>
 
-        <TouchableOpacity style={styles.borderButton}>
+        <TouchableOpacity onPress={navigateToUsers} style={styles.borderButton}>
           <View style={styles.containerContent}>
             <MaterialCommunityIcons name="account" size={40} />
 
