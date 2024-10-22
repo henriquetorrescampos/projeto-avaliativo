@@ -1,20 +1,20 @@
-import {
-  Text,
-  FlatList,
-  View,
-  TouchableOpacity,
-  TouchableHighlight,
-} from "react-native";
+import { Text, FlatList, View, TouchableOpacity, Switch } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "./style";
 
 export default function Users({ navigation }) {
-  const handle = () => {
-    console.log("te");
+  const [users, setUsers] = useState("");
+  const [isEnable, setIsEnable] = useState(false);
+
+  const toggleSwitch = () => {
+    setIsEnable((previousState) => !previousState);
   };
 
-  const [users, setUsers] = useState("");
+  const navigateToNewUser = () => {
+    navigation.navigate("NewUser");
+  };
 
   useEffect(() => {
     const getUsers = async () => {
@@ -35,17 +35,26 @@ export default function Users({ navigation }) {
   }, []);
 
   const renderUsers = ({ item: user, index }) => {
-    return <Text>{user.id}</Text>;
+    return (
+      <View style={styles.userContainer}>
+        <Switch
+          style={styles.switch}
+          onValueChange={toggleSwitch}
+          value={isEnable}
+        ></Switch>
+        <Text style={styles.userName}>{user.name}</Text>
+      </View>
+    );
   };
 
   return (
     <View>
       <View style={styles.containerButton}>
-        <TouchableHighlight onPress={handle}>
+        <TouchableOpacity onPress={navigateToNewUser}>
           <View style={styles.button}>
-            <Text>Novo Usuário</Text>
+            <Text style={styles.buttonText}>Novo Usuário</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
 
       <View>
@@ -53,6 +62,7 @@ export default function Users({ navigation }) {
           data={users}
           keyExtractor={(user) => user.id.toString()}
           renderItem={renderUsers}
+          numColumns={2}
         ></FlatList>
       </View>
     </View>
