@@ -3,14 +3,63 @@ import styles from "./style";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  function navigateToHome() {
-    navigation.navigate("Home");
+  // function navigateToHome() {
+  //   navigation.navigate("Home");
+  // }
+
+  const saveCredentials = async () => {
+    try {
+      await AsyncStorage.setItem("userEmail", email);
+      await AsyncStorage.setItem("userPassword", password);
+      console.log("Deu certo");
+    } catch (error) {
+      console.log("Failed to save", error);
+    }
+  };
+
+  const getCredentials = async () => {
+    try {
+      const savedEmail = await AsyncStorage.getItem("userEmail");
+      const savedPassword = await AsyncStorage.getItem("userPassword");
+      if (savedEmail !== null && savedPassword !== null) {
+        console.log("email", savedEmail);
+        console.log("password", savedPassword);
+      }
+    } catch (error) {
+      console.log("failed to get credentials", error);
+    }
+  };
+
+  function handleLogin() {
+    axios
+      .post(process.env.EXPO_PUBLIC_API_URL + "/login", {
+        email: email.toLowerCase(),
+        password: password,
+      })
+      .then((response) => {
+        if (response.data.profile === "admin") {
+          navigation.navigate("Home");
+        }
+      })
+      .catch((error) => {
+        console.log("Did not found the credentials", error);
+      });
   }
+
+  const handlePress = async () => {
+    await saveCredentials();
+    await getCredentials();
+    handleLogin();
+  };
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -32,14 +81,26 @@ export default function Login({ navigation }) {
         <View style={styles.space}></View>
 
         <Text style={styles.containerText}>Senha</Text>
-        <TextInput
-          style={styles.textInput}
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Insira sua senha"
-        ></TextInput>
 
-        <TouchableOpacity onPress={navigateToHome} style={styles.button}>
+        <View style={styles.containerPassword}>
+          <TextInput
+            secureTextEntry={showPassword}
+            style={styles.textInput}
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Insira sua senha"
+          ></TextInput>
+
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <MaterialCommunityIcons
+              style={styles.eye}
+              name={showPassword ? "eye-off" : "eye-outline"}
+              size={30}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity onPress={handlePress} style={styles.button}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
       </View>

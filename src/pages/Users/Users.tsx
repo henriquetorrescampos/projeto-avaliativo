@@ -13,7 +13,7 @@ export default function Users({ navigation }) {
   };
 
   const navigateToNewUser = () => {
-    navigation.navigate("NewUser");
+    navigation.navigate("New User");
   };
 
   useEffect(() => {

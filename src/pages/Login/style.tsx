@@ -49,4 +49,13 @@ export default StyleSheet.create({
     color: "#FFF",
     textAlign: "center",
   },
+  eye: {
+    position: "relative",
+    left: 290,
+    bottom: 38,
+  },
+  containerPassword: {
+    position: "relative",
+    width: "100%",
+  },
 });

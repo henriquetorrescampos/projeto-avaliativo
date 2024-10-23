@@ -8,15 +8,21 @@ export default function Home({ navigation }) {
     navigation.navigate("Users");
   }
 
+  function navigateToInventories() {
+    navigation.navigate("Inventories");
+  }
+
   return (
     <SafeAreaView>
       <Header></Header>
 
       <View style={styles.containerButtons}>
-        <TouchableOpacity style={styles.borderButton}>
+        <TouchableOpacity
+          style={styles.borderButton}
+          onPress={navigateToInventories}
+        >
           <View style={styles.containerContent}>
             <MaterialCommunityIcons name="store" size={40} />
-
             <Text style={styles.textButton}>Estoque</Text>
           </View>
 
@@ -30,7 +36,6 @@ export default function Home({ navigation }) {
         <TouchableOpacity onPress={navigateToUsers} style={styles.borderButton}>
           <View style={styles.containerContent}>
             <MaterialCommunityIcons name="account" size={40} />
-
             <Text style={styles.textButton}>Usuários</Text>
           </View>
 
