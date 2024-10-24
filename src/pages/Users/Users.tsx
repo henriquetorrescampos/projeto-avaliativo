@@ -1,15 +1,29 @@
 import { Text, FlatList, View, TouchableOpacity, Switch } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "./style";
 
 export default function Users({ navigation }) {
-  const [users, setUsers] = useState("");
-  const [isEnable, setIsEnable] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [isEnable, setIsEnable] = useState({});
 
-  const toggleSwitch = () => {
-    setIsEnable((previousState) => !previousState);
+  const toggleSwitch = async (id, currentStatus) => {
+    const newStatus = !currentStatus;
+
+    try {
+      setIsEnable((prevState) => ({
+        ...prevState,
+        [id]: newStatus,
+      }));
+
+      await axios.patch(`${process.env.EXPO_PUBLIC_API_URL}/users/${id}`, {
+        status: newStatus ? 1 : 0,
+      });
+
+      console.log(`Status updated for ${id}`);
+    } catch (error) {
+      console.log("Error updating status", error);
+    }
   };
 
   const navigateToNewUser = () => {
@@ -20,10 +34,18 @@ export default function Users({ navigation }) {
     const getUsers = async () => {
       try {
         const response = await axios.get(
-          process.env.EXPO_PUBLIC_API_URL + "/users"
+          `${process.env.EXPO_PUBLIC_API_URL}/users`
         );
 
         setUsers(response.data);
+
+        const initialSwitchState = {};
+
+        response.data.forEach((user) => {
+          initialSwitchState[user.id] = user.status === 1;
+        });
+
+        setIsEnable(initialSwitchState);
 
         // console.log(users);
       } catch (error) {
@@ -34,13 +56,18 @@ export default function Users({ navigation }) {
     getUsers();
   }, []);
 
-  const renderUsers = ({ item: user, index }) => {
+  const renderUsers = ({ item: user }) => {
     return (
-      <View style={styles.userContainer}>
+      <View
+        style={[
+          styles.userContainer,
+          isEnable[user.id] ? styles.switchOn : styles.switchOff,
+        ]}
+      >
         <Switch
           style={styles.switch}
-          onValueChange={toggleSwitch}
-          value={isEnable}
+          onValueChange={() => toggleSwitch(user.id, isEnable[user.id])}
+          value={isEnable[user.id]}
         ></Switch>
         <Text style={styles.userName}>{user.name}</Text>
       </View>

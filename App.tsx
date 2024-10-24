@@ -7,13 +7,14 @@ import Users from "./src/pages/Users/Users";
 import NewUser from "./src/pages/NewUser/NewUser";
 import Inventories from "./src/pages/Inventories/Inventories";
 import Movimentation from "./src/pages/Movimentation/Movimentation";
+import NewMovimentation from "./src/pages/NewMovimentation/NewMovimentation";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Movimentation">
         <Stack.Screen name="Login" component={Login} />
 
         <Stack.Screen name="Home" component={Home} />
@@ -25,6 +26,8 @@ export default function App() {
         <Stack.Screen name="Inventories" component={Inventories} />
 
         <Stack.Screen name="Movimentation" component={Movimentation} />
+
+        <Stack.Screen name="New Movimentation" component={NewMovimentation} />
       </Stack.Navigator>
     </NavigationContainer>
   );

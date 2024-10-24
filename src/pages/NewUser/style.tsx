@@ -10,7 +10,7 @@ export default StyleSheet.create({
     height: 50,
     backgroundColor: "#dddcdc",
     marginHorizontal: 10,
-    marginVertical: 20,
+    marginVertical: 10,
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     width: "100%",
     height: 40,
-    marginVertical: 10,
+    marginVertical: 4,
     padding: 10,
     fontSize: 20,
   },
@@ -32,9 +32,6 @@ export default StyleSheet.create({
     fontSize: 19,
     fontWeight: "bold",
   },
-  containerSpace: {
-    marginTop: 10,
-  },
   dadosLogin: {
     flexDirection: "row",
     alignItems: "center",
@@ -44,7 +41,6 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    marginVertical: 20,
     backgroundColor: "#28B360",
     width: 105,
     height: 60,
@@ -54,5 +50,17 @@ export default StyleSheet.create({
     color: "#FFF",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  eye: {
+    position: "relative",
+    left: 320,
+    bottom: 40,
+  },
+  containerPassword: {
+    position: "relative",
+    width: "100%",
+  },
+  containerSpace: {
+    marginTop: 3,
   },
 });

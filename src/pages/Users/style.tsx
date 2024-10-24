@@ -20,14 +20,23 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   userContainer: {
-    backgroundColor: "#D1EFEC",
-    width: 145,
+    width: 147,
     height: 120,
     marginHorizontal: 20,
     marginVertical: 20,
     padding: 10,
     borderRadius: 8,
     justifyContent: "space-between",
+  },
+  switchOn: {
+    backgroundColor: "#D1EFEC",
+    borderColor: "#D1EFEC",
+    borderWidth: 1,
+  },
+  switchOff: {
+    backgroundColor: "#F5DADE",
+    borderColor: "#F5DADE",
+    borderWidth: 1,
   },
   userName: {
     alignSelf: "center",

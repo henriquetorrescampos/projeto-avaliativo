@@ -81,7 +81,6 @@ export default function Login({ navigation }) {
         <View style={styles.space}></View>
 
         <Text style={styles.containerText}>Senha</Text>
-
         <View style={styles.containerPassword}>
           <TextInput
             secureTextEntry={showPassword}

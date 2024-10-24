@@ -18,6 +18,8 @@ export default function NewUser({ navigation }) {
   const [fullAddress, setFullAddress] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
   const changeProfileDriver = () => {
     setProfile("driver");
@@ -29,12 +31,12 @@ export default function NewUser({ navigation }) {
 
   function saveUser() {
     axios
-      .post(process.env.EXPO_PUBLIC_API_URL + "/register", {
+      .post(`${process.env.EXPO_PUBLIC_API_URL}/register`, {
         profile: profile,
         name: name,
         document: document,
         full_address: fullAddress,
-        email: email,
+        email: email.toLowerCase(),
         password: password,
       })
       .then(() => {
@@ -115,12 +117,44 @@ export default function NewUser({ navigation }) {
         ></TextInput>
 
         <Text style={[styles.containerText, styles.containerSpace]}>Senha</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite sua senha"
-          value={password}
-          onChangeText={setPassword}
-        ></TextInput>
+        <View style={styles.containerPassword}>
+          <TextInput
+            secureTextEntry={showPassword}
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Digite sua senha"
+          ></TextInput>
+
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <MaterialCommunityIcons
+              style={styles.eye}
+              name={showPassword ? "eye-off" : "eye-outline"}
+              size={30}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <Text style={[styles.containerText, styles.containerSpace]}>
+          Confirme a senha
+        </Text>
+        <View style={styles.containerPassword}>
+          <TextInput
+            secureTextEntry={showPassword2}
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Digite sua senha"
+          ></TextInput>
+
+          <TouchableOpacity onPress={() => setShowPassword2(!showPassword2)}>
+            <MaterialCommunityIcons
+              style={styles.eye}
+              name={showPassword2 ? "eye-off" : "eye-outline"}
+              size={30}
+            />
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity style={styles.button} onPress={saveUser}>
           <Text style={styles.buttonText}>Cadastrar</Text>
