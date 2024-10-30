@@ -16,9 +16,12 @@ export default function Users({ navigation }) {
         [id]: newStatus,
       }));
 
-      await axios.patch(`${process.env.EXPO_PUBLIC_API_URL}/users/${id}`, {
-        status: newStatus ? 1 : 0,
-      });
+      await axios.patch(
+        `${process.env.EXPO_PUBLIC_API_URL}/users/${id}/toggle-status`,
+        {
+          status: newStatus ? 1 : 0,
+        }
+      );
 
       console.log(`Status updated for ${id}`);
     } catch (error) {
