@@ -12,7 +12,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Precisamos acessar a câmera para capturar fotos durante a entrega."
+      }
     },
     "android": {
       "adaptiveIcon": {

@@ -4,6 +4,7 @@ export default StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: "#FFF",
+    marginTop: 60,
   },
   image: {
     alignSelf: "center",
@@ -48,5 +49,14 @@ export default StyleSheet.create({
     fontWeight: "bold",
     color: "#FFF",
     textAlign: "center",
+  },
+  eye: {
+    position: "relative",
+    left: 290,
+    bottom: 38,
+  },
+  containerPassword: {
+    position: "relative",
+    width: "100%",
   },
 });
