@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flexDirection: "row",
-    margin: 20,
+    margin: 15,
     height: 100,
     justifyContent: "space-between",
     alignItems: "center",
@@ -35,20 +35,14 @@ export default StyleSheet.create({
   },
   containerMovimentation: {
     width: 310,
-    gap: 8,
-    height: 220,
-    paddingHorizontal: 20,
+    gap: 3,
+    height: 210,
+    paddingHorizontal: 10,
+    marginBottom: 15,
     alignItems: "flex-start",
     alignSelf: "center",
     borderWidth: 0.2,
     justifyContent: "space-evenly",
-  },
-  movimentationId: {
-    fontWeight: "bold",
-    fontSize: 18,
-    paddingHorizontal: 8,
-    alignSelf: "flex-end",
-    position: "absolute",
   },
   titleBold: {
     fontWeight: "bold",

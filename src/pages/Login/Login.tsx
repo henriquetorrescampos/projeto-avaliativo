@@ -9,17 +9,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState("");
+  const [branchName, setBranchName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  // function navigateToHome() {
-  //   navigation.navigate("Home");
-  // }
 
   const saveCredentials = async () => {
     try {
       await AsyncStorage.setItem("userEmail", email);
       await AsyncStorage.setItem("userPassword", password);
+      await AsyncStorage.setItem("userBranchName", branchName);
       console.log("Deu certo");
     } catch (error) {
       console.log("Failed to save", error);
@@ -30,9 +27,11 @@ export default function Login({ navigation }) {
     try {
       const savedEmail = await AsyncStorage.getItem("userEmail");
       const savedPassword = await AsyncStorage.getItem("userPassword");
+      const savedBranchName = await AsyncStorage.getItem("userBranchName");
       if (savedEmail !== null && savedPassword !== null) {
         console.log("email", savedEmail);
         console.log("password", savedPassword);
+        console.log("branchName", savedBranchName);
       }
     } catch (error) {
       console.log("failed to get credentials", error);
@@ -46,8 +45,13 @@ export default function Login({ navigation }) {
         password: password,
       })
       .then((response) => {
+        setBranchName(response.data.name);
         if (response.data.profile === "admin") {
           navigation.navigate("Home");
+        } else if (response.data.profile === "subsidiary") {
+          navigation.navigate("Movimentation");
+        } else if (response.data.profile === "motorista") {
+          navigation.navigate("MovimentationDriver");
         }
       })
       .catch((error) => {

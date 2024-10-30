@@ -4,6 +4,7 @@ export default StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: "#FFF",
+    marginTop: 60,
   },
   image: {
     alignSelf: "center",
