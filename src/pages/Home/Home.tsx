@@ -3,7 +3,7 @@ import styles from "./style";
 import Header from "../../components/Header/Header";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function Home({ navigation }) {
+export default function Home({ navigation }: { navigation: any }) {
   function navigateToUsers() {
     navigation.navigate("Users");
   }

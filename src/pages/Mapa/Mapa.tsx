@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  SafeAreaView,
-} from "react-native";
+import { View, ActivityIndicator, SafeAreaView } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { StatusBar } from "expo-status-bar";
 import { RouteProp } from "@react-navigation/native";
