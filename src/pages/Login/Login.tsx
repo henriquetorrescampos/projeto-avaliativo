@@ -50,8 +50,8 @@ export default function Login({ navigation }) {
           navigation.navigate("Home");
         } else if (response.data.profile === "subsidiary") {
           navigation.navigate("Movimentation");
-        } else if (response.data.profile === "motorista") {
-          navigation.navigate("MovimentationDriver");
+        } else if (response.data.profile === "driver") {
+          navigation.navigate("Movimentation Driver");
         }
       })
       .catch((error) => {

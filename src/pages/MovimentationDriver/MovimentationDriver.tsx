@@ -207,24 +207,22 @@ export default function MovimentationDriver() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Entregas disponíveis</Text>
-        <StatusBar style="auto" />
-        <FlatList
-          data={movements}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{ paddingBottom: 20 }}
-        />
-        <TouchableOpacity
-          onPress={handleLogout}
-          style={styles.logoutButton}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.logoutButtonText}>Sair</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text style={styles.title}>Entregas disponíveis</Text>
+      <StatusBar style="auto" />
+      <FlatList
+        data={movements}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      />
+      <TouchableOpacity
+        onPress={handleLogout}
+        style={styles.logoutButton}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.logoutButtonText}>Sair</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
