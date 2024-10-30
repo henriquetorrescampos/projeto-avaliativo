@@ -13,10 +13,18 @@ import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./style";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { NavigationProp } from "@react-navigation/native";
+
+type RootStackParamList = {
+  Login: undefined;
+  Mapa: {
+    origem: { latitude: number; longitude: number };
+    destino: { latitude: number; longitude: number };
+  };
+};
 
 export default function MovimentationDriver() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleLogout = () => {
     navigation.navigate("Login");
@@ -29,7 +37,7 @@ export default function MovimentationDriver() {
     navigation.navigate("Mapa", { origem, destino });
   };
 
-  const [movements, setMovements] = useState([]);
+  const [movements, setMovements] = useState<Movement[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchMovements = async () => {
@@ -144,7 +152,7 @@ export default function MovimentationDriver() {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item }: { item: Movement }) => {
     return (
       <View style={styles.movementCard}>
         <View style={styles.productInfo}>
@@ -225,4 +233,13 @@ export default function MovimentationDriver() {
       </TouchableOpacity>
     </View>
   );
+}
+
+interface Movement {
+  id: string;
+  produto: { nome: string; imagem: string };
+  quantidade: number;
+  origem: { nome: string; latitude: number; longitude: number };
+  destino: { nome: string; latitude: number; longitude: number };
+  status: string;
 }

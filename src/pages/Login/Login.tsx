@@ -6,7 +6,7 @@ import axios from "axios";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Login({ navigation }) {
+export default function Login({ navigation }: { navigation: any }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [branchName, setBranchName] = useState("");

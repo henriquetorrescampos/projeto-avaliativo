@@ -4,9 +4,9 @@ import styles from "./style";
 import axios from "axios";
 
 export default function Inventories() {
-  const [products, setProducts] = useState([]);
-  const [original, setOriginal] = useState([]);
-  const [search, setSearch] = useState("");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [original, setOriginal] = useState<Product[]>([]);
+  const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     axios
@@ -34,7 +34,7 @@ export default function Inventories() {
     }
   }, [search, original]);
 
-  const renderProducts = ({ item: product, index }) => {
+  const renderProducts = ({ item: product }: { item: Product }) => {
     return (
       <View style={styles.cardContainer}>
         <View style={styles.card}>
@@ -71,4 +71,12 @@ export default function Inventories() {
       <FlatList data={products} renderItem={renderProducts}></FlatList>
     </View>
   );
+}
+
+interface Product {
+  product_name: string;
+  image_url: string;
+  branch_name: string;
+  quantity: number;
+  description: string;
 }

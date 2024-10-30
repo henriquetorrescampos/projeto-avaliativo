@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Movimentation({ navigation, id }) {
-  const [movimentation, setMovimentation] = useState([]);
+export default function Movimentation({ navigation }: { navigation: any }) {
+  const [movimentation, setMovimentation] = useState<Movimentation[]>([]);
   const [branchName, setBranchName] = useState("");
 
   const navigateToNewMovimentation = () => {
@@ -46,7 +46,7 @@ export default function Movimentation({ navigation, id }) {
     getData();
   }, []);
 
-  const renderMovimentation = ({ item }) => {
+  const renderMovimentation = ({ item }: { item: Movimentation }) => {
     return (
       <View style={styles.containerMovimentation}>
         <Text style={styles.fontSize}>
@@ -93,4 +93,20 @@ export default function Movimentation({ navigation, id }) {
       ></FlatList>
     </SafeAreaView>
   );
+}
+
+interface Location {
+  nome: string;
+}
+
+interface Produto {
+  nome: string;
+}
+
+interface Movimentation {
+  id: number;
+  origem: Location;
+  destino: Location;
+  produto: Produto;
+  status: string;
 }

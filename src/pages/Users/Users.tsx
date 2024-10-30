@@ -3,11 +3,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./style";
 
-export default function Users({ navigation }) {
-  const [users, setUsers] = useState([]);
-  const [isEnable, setIsEnable] = useState({});
+// Define the User interface above the component
+interface User {
+  id: number;
+  name: string;
+  status: number; // Assuming status is either 1 or 0
+}
 
-  const toggleSwitch = async (id, currentStatus) => {
+export default function Users({ navigation }: { navigation: any }) {
+  const [users, setUsers] = useState<User[]>([]);
+  const [isEnable, setIsEnable] = useState<Record<number, boolean>>({});
+
+  const toggleSwitch = async (id: number, currentStatus: boolean) => {
     const newStatus = !currentStatus;
 
     try {
@@ -36,21 +43,19 @@ export default function Users({ navigation }) {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios.get<User[]>(
           `${process.env.EXPO_PUBLIC_API_URL}/users`
         );
 
         setUsers(response.data);
 
-        const initialSwitchState = {};
+        const initialSwitchState: Record<number, boolean> = {};
 
         response.data.forEach((user) => {
           initialSwitchState[user.id] = user.status === 1;
         });
 
         setIsEnable(initialSwitchState);
-
-        // console.log(users);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -59,20 +64,20 @@ export default function Users({ navigation }) {
     getUsers();
   }, []);
 
-  const renderUsers = ({ item: user }) => {
+  const renderUsers = ({ item }: { item: User }) => {
     return (
       <View
         style={[
           styles.userContainer,
-          isEnable[user.id] ? styles.switchOn : styles.switchOff,
+          isEnable[item.id] ? styles.switchOn : styles.switchOff,
         ]}
       >
         <Switch
           style={styles.switch}
-          onValueChange={() => toggleSwitch(user.id, isEnable[user.id])}
-          value={isEnable[user.id]}
-        ></Switch>
-        <Text style={styles.userName}>{user.name}</Text>
+          onValueChange={() => toggleSwitch(item.id, isEnable[item.id])}
+          value={isEnable[item.id]}
+        />
+        <Text style={styles.userName}>{item.name}</Text>
       </View>
     );
   };
@@ -93,7 +98,7 @@ export default function Users({ navigation }) {
           keyExtractor={(user) => user.id.toString()}
           renderItem={renderUsers}
           numColumns={2}
-        ></FlatList>
+        />
       </View>
     </View>
   );

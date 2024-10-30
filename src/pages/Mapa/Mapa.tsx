@@ -11,7 +11,26 @@ import { StatusBar } from "expo-status-bar";
 import { RouteProp } from "@react-navigation/native";
 import styles from "./style";
 
-export default function Mapa({ route }) {
+type RootStackParamList = {
+  Mapa: {
+    origem: {
+      latitude: number;
+      longitude: number;
+    };
+    destino: {
+      latitude: number;
+      longitude: number;
+    };
+  };
+};
+
+type MapaScreenRouteProp = RouteProp<RootStackParamList, "Mapa">;
+
+interface MapaProps {
+  route: MapaScreenRouteProp;
+}
+
+export default function Mapa({ route }: MapaProps) {
   const { origem, destino } = route.params;
   const [region, setRegion] = useState<{
     latitude: number;

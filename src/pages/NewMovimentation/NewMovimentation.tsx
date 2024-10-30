@@ -10,13 +10,13 @@ import RNPickerSelect from "react-native-picker-select";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function NewMovimentation({ navigation }) {
+export default function NewMovimentation({ navigation }: { navigation: any }) {
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
   const [produtoDesejado, setProdutoDesejado] = useState("");
   const [quantidadeDesejada, setQuantidadeDesejada] = useState("");
-  const [getBranch, setGetBranch] = useState([]);
-  const [getProducts, setGetProducts] = useState([]);
+  const [getBranch, setGetBranch] = useState<Branch[]>([]);
+  const [getProducts, setGetProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchBranch = async () => {
@@ -63,6 +63,11 @@ export default function NewMovimentation({ navigation }) {
       });
   }
 
+  const selectedProductQuantity =
+    getProducts.find(
+      (product) => product.product_id === parseInt(produtoDesejado)
+    )?.quantity || 0;
+
   return (
     <SafeAreaView>
       <View style={styles.containerPicker}>
@@ -93,10 +98,10 @@ export default function NewMovimentation({ navigation }) {
         <RNPickerSelect
           onValueChange={(value) => setDestino(value)}
           items={getBranch
-            .filter((branch) => branch.id !== origem)
+            .filter((branch) => branch.id.toString() !== origem)
             .map((branch) => ({
               label: branch.name,
-              value: branch.id,
+              value: branch.id.toString(),
             }))}
           style={{
             inputIOS: {
@@ -117,7 +122,7 @@ export default function NewMovimentation({ navigation }) {
           onValueChange={(value) => setProdutoDesejado(value)}
           items={getProducts.map((product) => ({
             label: product.product_name,
-            value: product.product_id,
+            value: product.product_id.toString(),
           }))}
           style={{
             inputIOS: {
@@ -140,7 +145,7 @@ export default function NewMovimentation({ navigation }) {
             style={styles.textInputQtd}
           ></TextInput>
 
-          {parseInt(quantidadeDesejada) > getProducts.quantity && (
+          {parseInt(quantidadeDesejada) > selectedProductQuantity && (
             <Text>Quantidade maior que a disponível em estoque</Text>
           )}
         </View>
@@ -158,4 +163,15 @@ export default function NewMovimentation({ navigation }) {
       </View>
     </SafeAreaView>
   );
+}
+
+interface Branch {
+  id: number;
+  name: string;
+}
+
+interface Product {
+  product_id: number;
+  product_name: string;
+  quantity: number;
 }

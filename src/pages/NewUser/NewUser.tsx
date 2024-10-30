@@ -11,7 +11,7 @@ import axios from "axios";
 
 import styles from "./style";
 
-export default function NewUser({ navigation }) {
+export default function NewUser({ navigation }: { navigation: any }) {
   const [profile, setProfile] = useState("driver");
   const [name, setName] = useState("");
   const [document, setDocument] = useState("");
