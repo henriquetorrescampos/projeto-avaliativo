@@ -1,7 +1,6 @@
 # Guarda-Chuva Farmácias - Sistema de Movimentação de Produtos
 
 <img src="assets/logo.jpeg" alt="logo" width="200"/>
-![Alt text](assets/logo.jpeg)
 
 ## Descrição do Projeto
 
